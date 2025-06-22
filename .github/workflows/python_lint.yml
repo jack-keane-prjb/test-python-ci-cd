@@ -15,7 +15,8 @@ name: Pylint
 on:
   push:
     branches:
-      - '**'
+      - main
+      - dev
 
 jobs:
   build:
