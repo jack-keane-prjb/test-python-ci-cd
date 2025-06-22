@@ -4,7 +4,7 @@ flake8-bugbear==22.1.11
 flake8-pie==0.15.0
 isort==5.9.3
 mypy==0.931
-pytest==7.0.1
+pytest==8.4.1
 fastapi==0.115.13
 SQLAlchemy==2.0.41
 httpx==0.28.1
