@@ -1,22 +1,21 @@
 name: Pylint
-  
+
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-    
-      with:
-        python-version: '3.13'
-        cache: 'pip' # caching pip dependencies
-    - run: pip install -r requirements.txt
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
 
-    - run: pytest tests
-    - run: mypy src/
-    - run: black --diff --check src/
-    - run: isort --check-only src/
-    - run: flake8 src/
-    
+        with:
+          python-version: "3.13"
+          cache: "pip"
+      - run: pip install -r requirements.txt
+
+      - run: python tests.py
+      - run: mypy src/
+      - run: black --line-length 80 --diff --check src/
+      - run: isort --profile black --check-only src/
+      - run: flake8 src/
