@@ -8,8 +8,9 @@ class BaseRecipe(BaseModel):
     ingredients: str
     description: str
 
-class RecipeIn(BaseRecipe):
-    ...
+
+class RecipeIn(BaseRecipe): ...  # noqa: E701
+
 
 class RecipeOut(BaseRecipe):
     id: int

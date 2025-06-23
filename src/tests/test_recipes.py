@@ -1,17 +1,20 @@
-from fastapi import status
 import pytest
-import models
+from fastapi import status
 from sqlalchemy.future import select
+
+from models import Recipe
 
 
 @pytest.mark.asyncio
-async def test_good_recipe_creation_ok(client, async_session_factory, test_recipe):
+async def test_good_recipe_creation_ok(
+    client, async_session_factory, test_recipe
+):
 
-    response = client.post("/recipes/", json=test_recipe)
+    client.post("/recipes/", json=test_recipe)
 
     async with async_session_factory() as session:
 
-        result = await session.execute(select(models.Recipe))
+        result = await session.execute(select(Recipe))
         recipes = result.scalars().all()
         assert recipes[0].name == "Test Recipe"
 
@@ -30,7 +33,7 @@ async def test_recipes_sorted_by_views_asc_and_cooking_time_asc(
 ):
 
     async with async_session_factory() as session:
-        recipe = models.Recipe(**test_recipe)
+        recipe = Recipe(**test_recipe)
         session.add(recipe)
         await session.commit()
 
@@ -45,9 +48,11 @@ async def test_recipes_sorted_by_views_asc_and_cooking_time_asc(
 
 
 @pytest.mark.asyncio
-async def test_get_recipe_after_creation(client, test_recipe, async_session_factory):
+async def test_get_recipe_after_creation(
+    client, test_recipe, async_session_factory
+):
 
-    recipe = models.Recipe(**test_recipe)
+    recipe = Recipe(**test_recipe)
 
     async with async_session_factory() as session:
         session.add(recipe)
